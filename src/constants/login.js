@@ -1,0 +1,13 @@
+export const LOGIN = {
+	START: 'LOGIN_START',
+	SUCCESS: 'LOGIN_SUCCESS',
+	ERROR: 'LOGIN_ERROR',
+};
+
+export const SIGNUP = {
+	START: 'SIGNUP_START',
+	SUCCESS: 'SIGNUP_SUCCESS',
+	ERROR: 'SIGNUP_ERROR',
+};
+
+export const LOGOUT = 'LOGOUT';
