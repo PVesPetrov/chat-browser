@@ -1,19 +1,19 @@
 import io from 'socket.io-client';
 import * as c from 'constants/socket';
 
-const socket = io('http://localhost:5500');
+let socket;
 
-export const connectSocket = () => async (dispatch, getState) => {
-	dispatch({ type: c.CONNECT_SOCKET });
-	// const state = getState();
-	try {
-		socket.connect();
-		socket.on('connect', () => {
-			dispatch({ type: c.CONNECT_SOCKET.SUCCESS });
-		});
-	} catch (err) {
-		console.log(err);
-	}
+export const connectSocket = () => async dispatch => {
+	socket = io('http://localhost:5500');
+
+	socket.on('connected', configs => {
+		console.log({ configs });
+		dispatch({ type: c.CONNECT_SOCKET.SUCCESS });
+	});
+
+	socket.on('message', data => {
+		console.log(data);
+	});
 };
 
 export const sendMessage = data => async dispatch => {
