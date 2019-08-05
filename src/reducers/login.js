@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import * as c from 'constants/login';
 
 const user = (state = {}, { type, payload }) => {
-	console.log(payload);
 	switch (type) {
 		case c.LOGIN.SUCCESS:
 			return payload;

@@ -4,7 +4,7 @@ import { getIsLoggedIn } from 'reducers/login';
 import Header from 'containers/Header';
 import Public from 'containers/Public';
 import Private from 'containers/Private';
-import Error from 'components/Error';
+import GlobalAlert from 'components/GlobalAlert';
 
 import './App.sass';
 
@@ -14,7 +14,7 @@ const App = () => {
 		<div className='app-container'>
 			<Header />
 			<main className='app-main'>
-				<Error />
+				<GlobalAlert />
 				<div className='app-main-container'>{isLoggedIn ? <Private /> : <Public />}</div>
 			</main>
 		</div>

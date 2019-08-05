@@ -1,23 +1,16 @@
 import * as c from 'constants/login';
 import * as api from 'service/login';
 import history from '../history';
-import { addError } from './error';
+import { addAlert } from './alerts';
 
 export const login = credentials => async dispatch => {
 	dispatch({ type: c.LOGIN.START });
 	try {
-		const { data, error } = await api.login(credentials);
-		console.log({ data, error });
-		if (data) {
-			dispatch({ type: c.LOGIN.SUCCESS, payload: data.data[0] });
-			history.push('/home');
-		} else {
-			dispatch(addError(error.join()));
-			dispatch({ type: c.LOGIN.ERROR, payload: error });
-		}
+		const { data } = await api.login(credentials);
+		dispatch({ type: c.LOGIN.SUCCESS, payload: data.data[0] });
+		history.push('/home');
 	} catch (err) {
-		// dispatch(addError(err.response.data.msg));
-		console.log({ err });
+		dispatch(addAlert(err.response.data.error, { variant: 'danger', selfDismiss: true }));
 		dispatch({ type: c.LOGIN.ERROR, payload: err });
 	}
 };
@@ -25,16 +18,11 @@ export const login = credentials => async dispatch => {
 export const signup = credentials => async dispatch => {
 	dispatch({ type: c.SIGNUP.START });
 	try {
-		const { data, error } = await api.signup(credentials);
-		if (!error) {
-			dispatch({ type: c.SIGNUP.SUCCESS, payload: data });
-			history.push('/signupSuccess');
-		} else {
-			dispatch(addError(error));
-			dispatch({ type: c.SIGNUP.ERROR, payload: error });
-		}
+		const { data } = await api.signup(credentials);
+		dispatch({ type: c.SIGNUP.SUCCESS, payload: data });
+		history.push('/signupSuccess');
 	} catch (err) {
-		// dispatch(addError(err.response.data.msg));
+		dispatch(addAlert(err.response.data.msg, { variant: 'danger', selfDismiss: true }));
 		dispatch({ type: c.SIGNUP.ERROR, payload: err });
 	}
 };

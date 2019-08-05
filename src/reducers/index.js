@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import login from './login';
-import error from './error';
+import alerts from './alerts';
 import socket from './socket';
 
-export default combineReducers({ login, socket, error });
+export default combineReducers({ login, socket, alerts });
